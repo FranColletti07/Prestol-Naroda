@@ -1,0 +1,7 @@
+{
+  "name": "Prestol-Naroda",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
