@@ -47,8 +47,11 @@ export class JuegoPage implements OnInit {
       frecuencia: 10, //Normal
       unica: false,
       mostrar: true,
-      // valoracion : number, //Por si nos pinta hacer moral (bien-mal) 
-      efectos: [5, 5, 5, 5]
+      opcion1 : "El ejército ayudará en la reconstrucción",
+      opcion2 : "Taparemos el escándalo",
+      // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
+      efectosOpcion1: [5, 5, 5, 5],
+      efectosOpcion2: [-5, -5, -5, -5]
     }];
   constructor() { }
 
