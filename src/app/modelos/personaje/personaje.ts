@@ -6,5 +6,5 @@ export interface Personaje {
     relacion : number,
     puesto : string,
     conocido : boolean,
-    eventoId : [] //clave foranea de evento
+    eventoId : [number] //clave foranea de evento
 }
