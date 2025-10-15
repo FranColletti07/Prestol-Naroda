@@ -7,6 +7,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle }
 import { Personaje } from 'src/app/modelos/personaje/personaje';
 import { Decision } from 'src/app/modelos/decision/decision';
 import { Eleccion } from 'src/app/servicios/eleccion/eleccion';
+import { Personajes } from 'src/app/servicios/personajes/personajes';
 
 
 @Component({
@@ -17,7 +18,13 @@ import { Eleccion } from 'src/app/servicios/eleccion/eleccion';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle]
 })
 export class JuegoPage implements OnInit {
-
+  estadisticas = [50, 50, 50, 50]; // Estadisticas inciales de la partida
+  /*
+  [0] = Dinero
+  [1] = Apopyo popular
+  [2] = Ejercito
+  [3] = Recursos Naturales
+   */
   personajes: Personaje[] = [
     {
       id: 1,
@@ -33,35 +40,138 @@ export class JuegoPage implements OnInit {
       id: 2,
       nombre: "Juan Carlos",
       descripcion: "SHAW, Guarana",
-      imagen: "una/url.jpg",
+      imagen: "assets/url.jpg",
       relacion: 0, // te cae mal
       puesto: "Secretario general",
       conocido: true, //Lo conoces
       eventoId: [1]
     }
   ];
-  decisiones : Decision[] = [
+  decisiones: Decision[] = [
     {
-      id: 1,
+      id: 0,
       personajeId: 1,
       descripcion: "Explotó un depósito de armas en la región de Príoshka, llovió metralla en un radio de 3km",
       habilitada: true,
       frecuencia: 10, //Normal
       unica: false,
       mostrar: true,
-      opcion1 : "El ejército ayudará en la reconstrucción",
-      opcion2 : "Taparemos el escándalo",
+      opcion1: "El ejército ayudará en la reconstrucción",
+      opcion2: "Taparemos el escándalo",
       // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
       efectosOpcion1: [5, 5, 5, 5],
       efectosOpcion2: [-5, -5, -5, -5]
-    }];
-  constructor() { }
+    },
+    {
+      id: 1,
+      personajeId: 1,
+      descripcion: "Pienso que podríamos realizar una lotería nacional para estas navidades, si funciona bien podríamos recaudar muchos fondos",
+      habilitada: true,
+      frecuencia: 10, //Normal
+      unica: false,
+      mostrar: false,
+      opcion1: "Gran Idea",
+      opcion2: "No creo que a la gente le guste la idea",
+      // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
+      efectosOpcion1: [-30, 5, 5, 5],
+      efectosOpcion2: [-5, -5, -5, -5]
+    }
+  ];
+  constructor(private eleccionService: Eleccion, private personajeService: Personajes) { }
 
-  decisionAceptada(){
-    alert("Aceptado");
+  decisionOpcion1(id: number) {
+    alert("Opcion 1, ID: " + id);
+    let decision = this.decisiones.find(decision => decision.id === id);
+    let indiceDecision = this.decisiones.findIndex(decision => decision.id === id);
+    if (decision) {
+      for (let i = 0; i < 4; i++) {
+        this.estadisticas[i] = this.estadisticas[i] + decision.efectosOpcion1[i];
+      }
+      this.decisiones[indiceDecision].mostrar = false;
+      if (decision.unica) {
+        decision.habilitada = false;
+      }
+    } else {
+      alert("UUUUUIUUIUIUIUIUIUIU Error fatal");
+    }
+    let indiceNuevaDecision = this.numeroAleatorio(0, (this.decisiones.length - 1));
+    while ((indiceDecision === indiceNuevaDecision) || (this.decisiones[indiceNuevaDecision].habilitada == false)) {
+      indiceNuevaDecision = this.numeroAleatorio(0, (this.decisiones.length - 1));
+    };
+    let mostrar = true;
+    for (let i = 0; i < 4; i++) {
+      if (this.estadisticas[i] <= 0) {
+        this.final(i);
+        mostrar = false;
+      } else if (this.estadisticas[i] >= 100) {
+        this.final(i + 4);
+        mostrar = false;
+      }
+    }
+    if (mostrar) {
+      this.decisiones[indiceNuevaDecision].mostrar = true;
+    }
   }
-  decisionRechazada(){
-    alert("Rechazado");
+
+  decisionOpcion2(id: number) {
+    alert("Opcion 2, ID: " + id);
+    let decision = this.decisiones.find(decision => decision.id === id);
+    let indiceDecision = this.decisiones.findIndex(decision => decision.id === id);
+    if (decision) {
+      for (let i = 0; i < 4; i++) {
+        this.estadisticas[i] = this.estadisticas[i] + decision.efectosOpcion2[i];
+      }
+      this.decisiones[indiceDecision].mostrar = false;
+      if (decision.unica) {
+        decision.habilitada = false;
+      }
+    } else {
+      alert("UUUUUIUUIUIUIUIUIUIU Error fatal");
+    }
+    let indiceNuevaDecision = this.numeroAleatorio(0, (this.decisiones.length - 1));
+    while ((indiceDecision === indiceNuevaDecision) || (this.decisiones[indiceNuevaDecision].habilitada == false)) {
+      indiceNuevaDecision = this.numeroAleatorio(0, (this.decisiones.length - 1));
+    };
+    let mostrar = true;
+    for (let i = 0; i < 4; i++) {
+      if (this.estadisticas[i] <= 0) {
+        this.final(i);
+        alert("Nega");
+        mostrar = false;
+      } else if (this.estadisticas[i] >= 100) {
+        this.final(i + 4);
+        mostrar = false;
+      }
+    }
+    if (mostrar) {
+      this.decisiones[indiceNuevaDecision].mostrar = true;
+    }
+  }
+
+  numeroAleatorio(min: number, max: number) { // se incluye el minimo y el maximo
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  /*
+  id del final
+  0 = llegó a 0 la plata
+  1 = llegó a 0 el apoyo popular
+  2 = llegó a 0 el ejercito
+  3 = llegó a 0 los recursos naturales
+  4 = llegó al 100 la plata
+  5 = llegó a 100 el apoyo popular
+  6 = llegó a 100 el ejercito
+  7 = llegó a 100 los recursos naturales
+  8 = final por tiempo bueno?
+  9 = final por tiempo malo?
+  */
+  final(id: number) {
+    if (id === 0) {
+      alert("Te quedaste sin plata papito");
+      document.write("Gay over");
+     } /*else if()){
+     Todos los demás finales
+     }*/
   }
   ngOnInit() {
   }

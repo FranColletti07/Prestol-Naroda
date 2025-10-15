@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class Eleccion {
-  decisionTomada(){
+  decisionTomada(id : number){
     
+  }
+  constructor(){
+
   }
 }

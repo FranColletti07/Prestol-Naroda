@@ -13,28 +13,39 @@
   <div>
     <ion-button routerLink="../home">Volver al menú</ion-button>
   </div>
+  <h1>Stats</h1>
+  <p>
+    Dinero: {{ estadisticas[0] }}
+    Aprobacion popular: {{ estadisticas[1] }}
+    Poder del Ejercito: {{ estadisticas[2] }}
+    Recursos Naturales: {{ estadisticas[3] }}
+  </p>
   @for(decision of decisiones; track decision.id){
   @if(decision.mostrar){
-    <p>{{ decision.descripcion }}</p>
-  }
-  }
+  @for (personaje of personajes; track personaje.id) {
+  @if(personaje.id == decision.personajeId){
+
   <ion-card>
+    <p>{{ decision.descripcion }}</p>
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ personaje.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
     </ion-card-header>
-    @for (personaje of personajes; track personaje.id) {
     <img alt="Imagen del personaje" src="{{ personaje.imagen }}" />
-      <p>
+    <p>
       {{ personaje.descripcion }}
     </p>
-    }
 
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <p>Opción 1: {{ decision.opcion1 }}</p>
+      <p>Opción 2: {{ decision.opcion2 }}</p>
       <br>
-      <ion-button (click)="decisionRechazada()">Rechazar</ion-button>
-      <ion-button (click)="decisionAceptada()">Aceptar</ion-button>
+      <ion-button (click)="decisionOpcion1(decision.id)">Opcion 1</ion-button>
+      <ion-button (click)="decisionOpcion2(decision.id)">Opcion 2</ion-button>
     </ion-card-content>
   </ion-card>
+  }
+  }
+  }
+  }
 </ion-content>
