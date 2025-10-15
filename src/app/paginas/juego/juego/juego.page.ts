@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/angular/standalone';
 import { Personaje } from 'src/app/modelos/personaje/personaje';
 import { Decision } from 'src/app/modelos/decision/decision';
+import { Eleccion } from 'src/app/servicios/eleccion/eleccion';
+
 
 @Component({
   selector: 'app-juego',
@@ -21,7 +23,7 @@ export class JuegoPage implements OnInit {
       id: 1,
       nombre: "Carlos",
       descripcion: "Es carlos, un piola",
-      imagen: "una/url.jpg",
+      imagen: "assets/pelusa.gif",
       relacion: 0, // te cae mal
       puesto: "Secretario general",
       conocido: false, //Lo conoces
