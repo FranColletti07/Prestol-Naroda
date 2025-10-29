@@ -40,7 +40,7 @@ export class JuegoPage implements OnInit {
       id: 1,
       nombre: "Juan Carlos",
       descripcion: "SHAW, Guarana",
-      imagen: "assets/url.jpg",
+      imagen: "assets/jcarlos.jpeg",
       relacion: 0, // te cae mal
       puesto: "Secretario general",
       conocido: true, //Lo conoces
@@ -92,7 +92,6 @@ export class JuegoPage implements OnInit {
     }
   ];
   constructor(private eleccionService: Eleccion, private personajeService: Personajes) { }
-
   decisionOpcion1(decision: Decision) {
     alert("Opcion 1, ID: " + decision.id);
     let indiceDecision = this.decisiones.findIndex(item => item.id === decision.id);

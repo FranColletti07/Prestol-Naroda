@@ -1,10 +1,13 @@
 #container {
   text-align: center;
-  background-color: transparent;
   position: absolute;
   left: 0;
   right: 0;
   top: 50%;
+}
+
+ion-button{
+  --box-shadow: none;
 }
 
 #container strong {
@@ -26,4 +29,14 @@
   width: 50%;
   background-color: transparent;
 
+}
+
+.btn-container{
+  display: flex;
+  justify-content: center;
+  gap: 15%;
+}
+
+.UI{
+  width: 33%;
 }
