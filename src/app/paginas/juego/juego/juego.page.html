@@ -13,12 +13,20 @@
   <div>
     <ion-button routerLink="../home">Volver al menú</ion-button>
   </div>
+  <div id="stats">
   <h1>Stats</h1>
+
   <p>
     Dinero: {{ estadisticas[0] }}
+  </p>
+  <p>
     Aprobacion popular: {{ estadisticas[1] }}
-    Poder del Ejercito: {{ estadisticas[2] }}
-    Recursos Naturales: {{ estadisticas[3] }}
+  </p>
+  <p>
+        Poder del Ejercito: {{ estadisticas[2] }}
+  </p>
+  <p>
+        Recursos Naturales: {{ estadisticas[3] }}
   </p>
   @for(decision of decisiones; track decision.id){
   @if(decision.mostrar){
@@ -48,4 +56,5 @@
   }
   }
   }
+</div>
 </ion-content>

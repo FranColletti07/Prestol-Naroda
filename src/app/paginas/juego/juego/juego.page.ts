@@ -40,7 +40,7 @@ export class JuegoPage implements OnInit {
       id: 1,
       nombre: "Juan Carlos",
       descripcion: "SHAW, Guarana",
-      imagen: "assets/url.jpg",
+      imagen: "assets/jcarlos.jpeg",
       relacion: 0, // te cae mal
       puesto: "Secretario general",
       conocido: true, //Lo conoces
