@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Personaje } from 'src/app/modelos/personaje/personaje'; 
+import { Personaje } from 'src/app/modelos/personaje/personaje';
 @Injectable({
   providedIn: 'root'
 })
 export class Personajes {
   private personajeSubject = new BehaviorSubject<{ personaje: Personaje }[]>([]);
   /*BehaviorSubject es un tipo de Observable de RxJS que:
-  Almacena el estado actual del carrito (un array de objetos con producto y cantidad).
+  Almacena el estado actual del carrito (un array de objetos con personajes).
   Emite el valor actual a nuevos suscriptores (inicializado con un array vacío []). */
   personaje$ = this.personajeSubject.asObservable(); //Expone el BehaviorSubject como un Observable (para que otros componentes puedan suscribirse al carrito sin modificar su estado directamente).
-  
+  armarArregloPersonajes(personaje : Personaje){
+      const personajes = this.personajeSubject.getValue();  // Obtiene el array actual
+      this.personajeSubject.next([...personajes, { personaje }])
+  }
 
-  
+
   // agregarAlCarrito(producto: Producto) {
   //   const productos = this.carritoSubject.getValue();  // Obtiene el array actual
   //   const encontrado = productos.find(p => p.producto.id === producto.id); // Busca si el producto ya está
