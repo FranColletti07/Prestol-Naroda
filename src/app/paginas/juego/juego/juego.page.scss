@@ -1,19 +1,25 @@
 ion-card {
   display: flex;
-  flex-direction: column; /* Apila los elementos verticalmente */
-  align-items: center;    /* Centra horizontalmente */
-  text-align: center;     /* Centra el texto */
-  padding: 16px;
-
+  flex-direction: column;
+  /* Apila los elementos verticalmente */
+  align-items: center;
+  /* Centra horizontalmente */
+  text-align: center;
+  /* Centra el texto */
+  padding: 5%;
+  width: 100%;
   img {
-    width: "300px";       /* ajusta el tamaño de la imagen */
+    width: 30%;
+    /* ajusta el tamaño de la imagen */
     height: auto;
-    border-radius: 10px; /* opcional, para bordes redondeados */
+    border-radius: 10px;
+    /* opcional, para bordes redondeados */
     margin: 10px 0;
   }
 }
-   #stats { 
-    display: flex;
-    flex-direction: column;     
-    
+
+#stats {
+  display: flex;
+  flex-direction: column;
+
 }

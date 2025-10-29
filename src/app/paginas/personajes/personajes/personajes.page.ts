@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { Personajes } from 'src/app/servicios/personajes/personajes';
 import { Personaje } from 'src/app/modelos/personaje/personaje';
 @Component({
@@ -9,7 +9,7 @@ import { Personaje } from 'src/app/modelos/personaje/personaje';
   templateUrl: './personajes.page.html',
   styleUrls: ['./personajes.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
 })
 export class PersonajesPage implements OnInit {
   personajes: { personaje: Personaje }[] = [];
