@@ -28,22 +28,23 @@
   <p>
         Recursos Naturales: {{ estadisticas[3] }}
   </p>
+
   @for(decision of decisiones; track decision.id){
   @if(decision.mostrar){
   @for (personaje of personajes; track personaje.id) {
   @if(personaje.id == decision.personajeId){
 
   <ion-card>
-    <p>{{ decision.descripcion }}</p>
+    
     <ion-card-header>
-      <ion-card-title>{{ personaje.nombre }}</ion-card-title>
+      <ion-card-title><h1> {{ personaje.nombre }}</h1></ion-card-title>
       <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
     </ion-card-header>
     <img alt="Imagen del personaje" src="{{ personaje.imagen }}" />
     <p>
       {{ personaje.descripcion }}
     </p>
-
+<p>{{ decision.descripcion }}</p>
     <ion-card-content>
       <p>Opción 1: {{ decision.opcion1 }}</p>
       <p>Opción 2: {{ decision.opcion2 }}</p>
