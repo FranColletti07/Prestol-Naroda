@@ -11,10 +11,15 @@
     </ion-toolbar>
   </ion-header>
   @for (personaje of personajes; track personaje.personaje.id){
-    <p>
-      {{ personaje.personaje.nombre }}
-    </p>
+  <p>
+    {{ personaje.personaje.nombre }}
+  </p>
   }
-  <!-- <p>{{ personajes[0].personaje.nombre }}</p> -->
+  <div>
+    <ion-button routerLink="../home">Volver al menú</ion-button>
+  </div>
+  <p>
+    {{ personajes[0].personaje.id}}
+  </p><!-- <p>{{ personajes[0].personaje.nombre }}</p> -->
   <p>Wasap</p>
 </ion-content>

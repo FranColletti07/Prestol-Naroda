@@ -8,6 +8,7 @@ import { Personaje } from 'src/app/modelos/personaje/personaje';
 import { Decision } from 'src/app/modelos/decision/decision';
 import { Eleccion } from 'src/app/servicios/eleccion/eleccion';
 import { Personajes } from 'src/app/servicios/personajes/personajes';
+import { Estadistica } from 'src/app/modelos/estadistica/estadistica';
 
 
 @Component({
@@ -18,7 +19,27 @@ import { Personajes } from 'src/app/servicios/personajes/personajes';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle]
 })
 export class JuegoPage implements OnInit {
-  estadisticas = [50, 50, 50, 50]; // Estadisticas inciales de la partida
+  estadisticas: Estadistica[] = [{
+    id: 0,
+    nombre: "Dinero",
+    habilitada: true,
+    estado: 50
+  }, {
+    id: 1,
+    nombre: "Apoyo Popular",
+    habilitada: true,
+    estado: 50
+  }, {
+    id: 2,
+    nombre: "Ejercito",
+    habilitada: true,
+    estado: 50
+  }, {
+    id: 3,
+    nombre: "Recursos Naturales",
+    habilitada: true,
+    estado: 50
+  }]; // Estadisticas inciales de la partida
   /*
   [0] = Dinero
   [1] = Apopyo popular
@@ -43,8 +64,18 @@ export class JuegoPage implements OnInit {
       imagen: "assets/jcarlos.jpeg",
       relacion: 0, // te cae mal
       puesto: "Secretario general",
-      conocido: true, //Lo conoces
+      conocido: false, //Lo conoces
       eventoId: [1]
+    },
+    {
+      id: 2,
+      nombre: "El creador",
+      descripcion: "Soy re fachero",
+      imagen: "assets/pelusa.gif",
+      relacion: 0, // te cae mal
+      puesto: "El creador",
+      conocido: true, //Lo conoces
+      eventoId: [3]
     }
   ];
   decisiones: Decision[] = [
@@ -55,7 +86,7 @@ export class JuegoPage implements OnInit {
       habilitada: true,
       frecuencia: 10, //Normal
       unica: false,
-      mostrar: true,
+      mostrar: false,
       opcion1: "El ejército ayudará en la reconstrucción",
       opcion2: "Taparemos el escándalo",
       // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
@@ -89,15 +120,30 @@ export class JuegoPage implements OnInit {
       // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
       efectosOpcion1: [100, 100, 100, 100],
       efectosOpcion2: [100, 100, 100, 100]
+    },
+    {
+      id: 3,
+      personajeId: 2,
+      descripcion: "Hola soy el creador",
+      habilitada: true,
+      frecuencia: 10, //Normal
+      unica: true,
+      mostrar: true,
+      opcion1: "Ok",
+      opcion2: "Tremendo",
+      // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
+      efectosOpcion1: [0, 0, 0, 0],
+      efectosOpcion2: [0, 0, 0, 0]
     }
   ];
+
   constructor(private eleccionService: Eleccion, private personajeService: Personajes) { }
   decisionOpcion1(decision: Decision) {
     alert("Opcion 1, ID: " + decision.id);
     let indiceDecision = this.decisiones.findIndex(item => item.id === decision.id);
     let indicePersonaje = this.personajes.findIndex(item => item.id === decision.personajeId);
     for (let i = 0; i < 4; i++) {
-      this.estadisticas[i] = this.estadisticas[i] + decision.efectosOpcion1[i];
+      this.estadisticas[i].estado = this.estadisticas[i].estado + decision.efectosOpcion1[i];
     }
     this.decisiones[indiceDecision].mostrar = false;
     if (decision.unica) {
@@ -112,15 +158,15 @@ export class JuegoPage implements OnInit {
 
     if (this.personajes[indicePersonaje].conocido === false) {
       this.personajes[indicePersonaje].conocido = true;
+      this.personajeService.armarArregloPersonajes(this.personajes[indicePersonaje]);
     }
 
-    //
     let mostrar = true;
     for (let i = 0; i < 4; i++) {
-      if (this.estadisticas[i] <= 0) {
+      if (this.estadisticas[i].estado <= 0) {
         this.final(i);
         mostrar = false;
-      } else if (this.estadisticas[i] >= 100) {
+      } else if (this.estadisticas[i].estado >= 100) {
         this.final(i + 4);
         mostrar = false;
       }
@@ -133,9 +179,10 @@ export class JuegoPage implements OnInit {
   decisionOpcion2(decision: Decision) {
     alert("Opcion 2, ID: " + decision.id);
     let indiceDecision = this.decisiones.findIndex(item => item.id === decision.id);
+    let indicePersonaje = this.personajes.findIndex(item => item.id === decision.personajeId);
     if (decision) {
       for (let i = 0; i < 4; i++) {
-        this.estadisticas[i] = this.estadisticas[i] + decision.efectosOpcion2[i];
+        this.estadisticas[i].estado = this.estadisticas[i].estado + decision.efectosOpcion2[i];
       }
       this.decisiones[indiceDecision].mostrar = false;
       if (decision.unica) {
@@ -150,10 +197,10 @@ export class JuegoPage implements OnInit {
     };
     let mostrar = true;
     for (let i = 0; i < 4; i++) {
-      if (this.estadisticas[i] <= 0) {
+      if (this.estadisticas[i].estado <= 0) {
         this.final(i);
         mostrar = false;
-      } else if (this.estadisticas[i] >= 100) {
+      } else if (this.estadisticas[i].estado >= 100) {
         this.final(i + 4);
         mostrar = false;
       }
@@ -161,6 +208,11 @@ export class JuegoPage implements OnInit {
     if (mostrar) {
       this.decisiones[indiceNuevaDecision].mostrar = true;
     }
+    if (this.personajes[indicePersonaje].conocido === false) {
+      this.personajes[indicePersonaje].conocido = true;
+      this.personajeService.armarArregloPersonajes(this.personajes[indicePersonaje]);
+    }
+
   }
 
   numeroAleatorio(min: number, max: number) { // se incluye el minimo y el maximo
@@ -183,11 +235,11 @@ export class JuegoPage implements OnInit {
   final(id: number) {
     if (id === 0) {
       alert("Te quedaste sin plata papito");
-      document.writeln("Gay over");
+      document.writeln("Gary over");
     } /*else if()){
      Todos los demás finales
      }*/
-    document.writeln("Gay over");
+    document.writeln("Game over");
   }
 
   ngOnInit() {

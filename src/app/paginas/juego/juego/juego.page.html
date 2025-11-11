@@ -5,57 +5,58 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">juego</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <div>
     <ion-button routerLink="../home">Volver al menú</ion-button>
   </div>
+
   <div id="stats">
-  <h1>Stats</h1>
+    <table>
+      <tr>
+        @for(estadistica of estadisticas; track estadistica.id ){
+        <td>
+          <p>
+            {{ estadistica.nombre }}: {{ estadistica.estado }}
+          </p>
+        </td>
+        }
+      </tr>
+    </table>
+  </div>
 
-  <p>
-    Dinero: {{ estadisticas[0] }}
-  </p>
-  <p>
-    Aprobacion popular: {{ estadisticas[1] }}
-  </p>
-  <p>
-        Poder del Ejercito: {{ estadisticas[2] }}
-  </p>
-  <p>
-        Recursos Naturales: {{ estadisticas[3] }}
-  </p>
+  <div id="div-centrado">
+    @for(decision of decisiones; track decision.id){
+    @if(decision.mostrar){
+    @for (personaje of personajes; track personaje.id) {
+    @if(personaje.id == decision.personajeId){
 
-  @for(decision of decisiones; track decision.id){
-  @if(decision.mostrar){
-  @for (personaje of personajes; track personaje.id) {
-  @if(personaje.id == decision.personajeId){
+    <ion-card id="ch-card">
+      <p>{{ decision.descripcion }}</p>
+      <ion-card-header>
+        <ion-card-title>{{ personaje.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
+      </ion-card-header>
+      <img alt="Imagen del personaje" src="{{ personaje.imagen }}" />
+      <p>
+        {{ personaje.descripcion }}
+      </p>
 
-  <ion-card>
-    
-    <ion-card-header>
-      <ion-card-title><h1> {{ personaje.nombre }}</h1></ion-card-title>
-      <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
-    </ion-card-header>
-    <img alt="Imagen del personaje" src="{{ personaje.imagen }}" />
-    <p>
-      {{ personaje.descripcion }}
-    </p>
-<p>{{ decision.descripcion }}</p>
-    <ion-card-content>
-      <p>Opción 1: {{ decision.opcion1 }}</p>
-      <p>Opción 2: {{ decision.opcion2 }}</p>
-      <br>
-      <ion-button (click)="decisionOpcion1(decision)">Opcion 1</ion-button>
-      <ion-button (click)="decisionOpcion2(decision)">Opcion 2</ion-button>
-    </ion-card-content>
-  </ion-card>
-  }
-  }
-  }
-  }
-</div>
+      <ion-card-content>
+        <div id="options">
+          <ion-button class="option1" (click)="decisionOpcion1(decision)">{{ decision.opcion1 }}</ion-button>
+          <ion-button class="option2" (click)="decisionOpcion2(decision)">{{ decision.opcion2 }}</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    }
+    }
+    }
+    }
+  </div>
 </ion-content>
