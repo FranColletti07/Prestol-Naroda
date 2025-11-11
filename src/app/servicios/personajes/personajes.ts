@@ -5,14 +5,14 @@ import { Personaje } from 'src/app/modelos/personaje/personaje';
   providedIn: 'root'
 })
 export class Personajes {
-  private personajeSubject = new BehaviorSubject<{ personaje: Personaje }[]>([]);
+  private personajeSubject = new BehaviorSubject<Personaje[]>([]);
   /*BehaviorSubject es un tipo de Observable de RxJS que:
   Almacena el estado actual del carrito (un array de objetos con personajes).
   Emite el valor actual a nuevos suscriptores (inicializado con un array vacío []). */
   personaje$ = this.personajeSubject.asObservable(); //Expone el BehaviorSubject como un Observable (para que otros componentes puedan suscribirse al carrito sin modificar su estado directamente).
   armarArregloPersonajes(personaje : Personaje){
       const personajes = this.personajeSubject.getValue();  // Obtiene el array actual
-      this.personajeSubject.next([...personajes, { personaje }])
+      this.personajeSubject.next([...personajes, personaje])
   }
 
 

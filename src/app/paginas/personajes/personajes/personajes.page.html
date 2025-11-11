@@ -7,19 +7,25 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">personajes</ion-title>
+      <ion-title size="large">Personajes</ion-title>
     </ion-toolbar>
   </ion-header>
-  @for (personaje of personajes; track personaje.personaje.id){
-  <p>
-    {{ personaje.personaje.nombre }}
-  </p>
+  @if(personajes.length <= 0){
+    <ion-title>No conoces ningún personaje aún</ion-title>
+  }
+  @for (personaje of personajes; track personaje.id){
+  <ion-card style="width: fit-content;">
+    <ion-card-header>
+      <ion-card-title>{{ personaje.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
+    </ion-card-header>
+    <img alt="Imagen del personaje" src="{{ personaje.imagen }}" />
+    <p>
+      {{ personaje.descripcion }}
+    </p>
+  </ion-card>
   }
   <div>
-    <ion-button routerLink="../home">Volver al menú</ion-button>
+    <ion-button routerLink="/home">Volver al menú</ion-button>
   </div>
-  <p>
-    {{ personajes[0].personaje.id}}
-  </p><!-- <p>{{ personajes[0].personaje.nombre }}</p> -->
-  <p>Wasap</p>
 </ion-content>
