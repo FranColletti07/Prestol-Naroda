@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
@@ -18,7 +18,7 @@ import { Estadistica } from 'src/app/modelos/estadistica/estadistica';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle]
 })
-export class JuegoPage implements OnInit {
+export class JuegoPage {
   estadisticas: Estadistica[] = [{
     id: 0,
     nombre: "Dinero",
@@ -59,11 +59,11 @@ export class JuegoPage implements OnInit {
     },
     {
       id: 1,
-      nombre: "Juan Carlos",
-      descripcion: "SHAW, Guarana",
-      imagen: "assets/jcarlos.jpeg",
+      nombre: "Axel Klamm",
+      descripcion: "Joven de orígenes humildes, es un arribista que llegó hasta donde está por su propio mérito, es peligroso darle mucho poder, pero no se lo puede ignorar.",
+      imagen: "assets/Axel_Klamm.png",
       relacion: 0, // te cae mal
-      puesto: "Secretario general",
+      puesto: "Secretario General del CRP",
       conocido: false, //Lo conoces
       eventoId: [1]
     },
@@ -74,7 +74,7 @@ export class JuegoPage implements OnInit {
       imagen: "assets/pelusa.gif",
       relacion: 0, // te cae mal
       puesto: "El creador",
-      conocido: true, //Lo conoces
+      conocido: false, //Lo conoces
       eventoId: [3]
     }
   ];
@@ -110,7 +110,7 @@ export class JuegoPage implements OnInit {
     {
       id: 2,
       personajeId: 1,
-      descripcion: "Trava lindo o mina fea",
+      descripcion: "",
       habilitada: true,
       frecuencia: 10, //Normal
       unica: false,
@@ -128,7 +128,7 @@ export class JuegoPage implements OnInit {
       habilitada: true,
       frecuencia: 10, //Normal
       unica: true,
-      mostrar: true,
+      mostrar: true, //Siempre empieza por esta
       opcion1: "Ok",
       opcion2: "Tremendo",
       // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
@@ -138,7 +138,7 @@ export class JuegoPage implements OnInit {
   ];
   constructor(private eleccionService: Eleccion, private personajeService: Personajes) { }
   decisionOpcion1(decision: Decision) {
-    alert("Opcion 1, ID: " + decision.id);
+    alert("Has tomado una decision");
     let indiceDecision = this.decisiones.findIndex(item => item.id === decision.id);
     let indicePersonaje = this.personajes.findIndex(item => item.id === decision.personajeId);
     for (let i = 0; i < 4; i++) {
@@ -177,7 +177,7 @@ export class JuegoPage implements OnInit {
   }
 
   decisionOpcion2(decision: Decision) {
-    alert("Opcion 2, ID: " + decision.id);
+    alert("Has tomado una decisión");
     let indiceDecision = this.decisiones.findIndex(item => item.id === decision.id);
     let indicePersonaje = this.personajes.findIndex(item => item.id === decision.personajeId);
     if (decision) {
@@ -241,8 +241,4 @@ export class JuegoPage implements OnInit {
      }*/
     document.writeln("Game over");
   }
-
-  ngOnInit() {
-  }
-
 }
