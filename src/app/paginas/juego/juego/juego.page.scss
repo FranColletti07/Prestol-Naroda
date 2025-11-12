@@ -1,19 +1,15 @@
 ion-card {
   display: flex;
   flex-direction: column;
-  /* Apila los elementos verticalmente */
   align-items: center;
-  /* Centra horizontalmente */
   text-align: center;
-  /* Centra el texto */
   padding: 5%;
   width: 100%;
+
   img {
     width: 30%;
-    /* ajusta el tamaño de la imagen */
     height: auto;
     border-radius: 10px;
-    /* opcional, para bordes redondeados */
     margin: 10px 0;
   }
 }
@@ -21,5 +17,30 @@ ion-card {
 #stats {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background-color: #ccc;
+}
 
+#div-centrado{
+  
+}
+
+#ch-card{
+  background: linear-gradient(to top, #a00, #700);
+  width: 75%;
+}
+
+#options{
+  display: flex;
+  width: 100%;
+}
+
+.option1{
+  float: left;
+  width: 50%;
+}
+
+.option2{
+  float: right;
+  width: 50%;
 }

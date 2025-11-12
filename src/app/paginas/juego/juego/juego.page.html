@@ -5,14 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">juego</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <div>
     <ion-button routerLink="../home">Volver al menú</ion-button>
   </div>
+
   <div id="stats">
     <table>
       <tr>
@@ -25,12 +28,15 @@
         }
       </tr>
     </table>
+  </div>
+
+  <div id="div-centrado">
     @for(decision of decisiones; track decision.id){
     @if(decision.mostrar){
     @for (personaje of personajes; track personaje.id) {
     @if(personaje.id == decision.personajeId){
 
-    <ion-card>
+    <ion-card id="ch-card">
       <p>{{ decision.descripcion }}</p>
       <ion-card-header>
         <ion-card-title>{{ personaje.nombre }}</ion-card-title>
@@ -42,11 +48,10 @@
       </p>
 
       <ion-card-content>
-        <p>Opción 1: {{ decision.opcion1 }}</p>
-        <p>Opción 2: {{ decision.opcion2 }}</p>
-        <br>
-        <ion-button (click)="decisionOpcion1(decision)">Opcion 1</ion-button>
-        <ion-button (click)="decisionOpcion2(decision)">Opcion 2</ion-button>
+        <div id="options">
+          <ion-button class="option1" (click)="decisionOpcion1(decision)">{{ decision.opcion1 }}</ion-button>
+          <ion-button class="option2" (click)="decisionOpcion2(decision)">{{ decision.opcion2 }}</ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
     }
