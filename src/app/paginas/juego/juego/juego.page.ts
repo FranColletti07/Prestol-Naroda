@@ -118,8 +118,8 @@ export class JuegoPage {
       opcion1: "Gran Idea",
       opcion2: "No creo que a la gente le guste la idea",
       // valoracion : number, //Por si nos pinta hacer moral (bien-mal) Podría ir en efectos perfectamente
-      efectosOpcion1: [100, 100, 100, 100],
-      efectosOpcion2: [100, 100, 100, 100]
+      efectosOpcion1: [0, 0, 0, 0],
+      efectosOpcion2: [0, 0, 0, 0]
     },
     {
       id: 3,
@@ -235,7 +235,7 @@ export class JuegoPage {
   final(id: number) {
     if (id === 0) {
       alert("Te quedaste sin plata papito");
-      document.writeln("Gary over");
+      document.writeln("Game over");
     } /*else if()){
      Todos los demás finales
      }*/

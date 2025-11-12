@@ -13,8 +13,10 @@
   @if(personajes.length <= 0){
     <ion-title>No conoces ningún personaje aún</ion-title>
   }
+  
+<div style="display: flex;">
   @for (personaje of personajes; track personaje.id){
-  <ion-card style="width: fit-content;">
+  <ion-card style="width: 50%;">
     <ion-card-header>
       <ion-card-title>{{ personaje.nombre }}</ion-card-title>
       <ion-card-subtitle>{{ personaje.puesto }}</ion-card-subtitle>
@@ -25,6 +27,8 @@
     </p>
   </ion-card>
   }
+</div>
+
   <div>
     <ion-button routerLink="/home">Volver al menú</ion-button>
   </div>

@@ -11,24 +11,24 @@
       <ion-title size="large">juego</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <div>
     <ion-button routerLink="../home">Volver al menú</ion-button>
   </div>
-
-  <div id="stats">
-    <table>
-      <tr>
-        @for(estadistica of estadisticas; track estadistica.id ){
-        <td>
-          <p>
-            {{ estadistica.nombre }}: {{ estadistica.estado }}
-          </p>
-        </td>
-        }
-      </tr>
-    </table>
-  </div>
+  
+  <div style="display: flex; justify-content: center; flex-direction: column; color: black;">
+    <div id="stats" >
+      <table>
+        <tr>
+          @for(estadistica of estadisticas; track estadistica.id ){
+          <td>
+            <p>
+               {{ estadistica.nombre }}: {{ estadistica.estado }} ㅤㅤㅤ
+            </p>
+          </td>
+          }
+        </tr>
+      </table>
+    </div>
 
   <div id="div-centrado">
     @for(decision of decisiones; track decision.id){
@@ -36,7 +36,7 @@
     @for (personaje of personajes; track personaje.id) {
     @if(personaje.id == decision.personajeId){
 
-    <ion-card id="ch-card">
+    <ion-card id="ch-card" style="width: 100% !important;">
       <p>{{ decision.descripcion }}</p>
       <ion-card-header>
         <ion-card-title>{{ personaje.nombre }}</ion-card-title>
@@ -58,5 +58,6 @@
     }
     }
     }
+  </div>
   </div>
 </ion-content>
